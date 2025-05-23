@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sentence Rewriter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e2f;
+            color: #eee;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #3a3a5c;
+        }
+        h1 {
+            text-align: center;
+            color: #ff6584;
+        }
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #ffa8c5;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+        }
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6584;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff4477;
+        }
+        #result {
+            margin-top: 30px;
+            padding: 15px;
+            background: #2c2c4a;
+            border-radius: 6px;
+            min-height: 80px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sentence Rewriter</h1>
+    <label for="sentence">Enter a sentence:</label>
+    <input type="text" id="sentence" placeholder="Type your sentence here..." />
+
+    <label for="vibe">Choose a vibe:</label>
+    <select id="vibe" required>
+        <option value="apologetic">Apologetic</option>
+        <option value="aggressive">Aggressive</option>
+        <option value="formal">Formal</option>
+        <option value="casual">Casual</option>
+        <option value="genz">Gen Z</option>
+        <option value="flirty">Flirty</option>
+    </select>
+
+    <button onclick="rewriteSentence()">Rewrite it!</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function rewriteSentence() {
+            const sentence = document.getElementById('sentence').value.trim();
+            const vibe = document.getElementById('vibe').value;
+
+            if (!sentence) {
+                alert("Please enter a sentence.");
+                return;
+            }
+
+            document.getElementById('result').textContent = "Rewriting... 🧙‍♂️";
+
+            const response = await fetch('/rewrite', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({sentence, vibe})
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                document.getElementById('result').textContent = "Error: " + data.error;
+            } else {
+                document.getElementById('result').textContent = data.rewritten;
+            }
+        }
+    </script>
+</body>
+</html>
