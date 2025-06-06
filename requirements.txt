@@ -4,18 +4,4 @@ nltk
 matplotlib
 seaborn
 streamlit
-TgyrJfpx02UujwLyhe7qodbRR0NSsSTLMlBWCZvo
-
-
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
-if __name__ == '__main__':
-    port = 5000
-    url = f"http://127.0.0.1:{port}/"
-    Timer(1, lambda: webbrowser.open(url)).start()
-    app.run(debug=True, port=port)
+flask
