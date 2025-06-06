@@ -6,7 +6,7 @@ from threading import Timer
 
 app = Flask(__name__)
 
-API_KEY = "TgyrJfpx02UujwLyhe7qodbRR0NSsSTLMlBWCZvo"
+API_KEY = "REPLACE WITH YOUR API KEY HERE"
 co = cohere.Client(API_KEY)
 
 @app.route('/')
